@@ -2,10 +2,10 @@ $fn = 250;
 
 FI = (sqrt(5) + 1) / 2;
 
-dCandle = 50;
+dCandle = 61;
 tWall = 2;
-dScrew = 6;
-hScrew = 5;
+dScrew = 8.6;
+hScrew = 4;
 
 dCandleExt = dCandle + 2 * tWall;
 echo("dCandleExt", dCandleExt);
@@ -21,7 +21,7 @@ echo("hCandleStandExt", hCandleStandExt);
 hLeg = hVase * FI - hCandleStandExt;
 dSphereStand = dSphereExt / FI;
 echo("dSphereStand", dSphereStand);
-dLegNarrow = dSphereStand / (FI * 5);
+dLegNarrow = dSphereStand / (FI * 7);
 echo("dLegNarrow", dLegNarrow);
 
 translate([0, 0, tWall])
