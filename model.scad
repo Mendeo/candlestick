@@ -1,9 +1,11 @@
-$fn = 200;
+$fn = 50;
 
 FI = (sqrt(5) + 1) / 2;
 
 dCandle = 50;
 tWall = 2;
+dScrew = 6;
+hScrew = 5;
 
 dCandleExt = dCandle + 2 * tWall;
 echo("dCandleExt", dCandleExt);
@@ -20,10 +22,22 @@ hLeg = hVase * FI - hStandExt;
 dLegNarrow = tWall * FI * FI;
 echo("dLegNarrow", dLegNarrow);
 
-translate([0, 0, hLeg])
-stand();
-leg(hLeg, dLegNarrow / 2, dCandleExt / 2);
-vase();
+//hyperboloid();
+
+difference()
+{
+	union()
+	{
+		translate([0, 0, hLeg])
+		stand();
+		leg();
+		vase();
+	}
+	//Выемка под саморез
+	translate([0, 0, hLeg + hStandExt - hStandInt - hScrew])
+	cylinder(d = dScrew, h = hScrew + 1);
+}
+
 
 module stand()
 {
@@ -35,12 +49,17 @@ module stand()
 	}
 }
 
-module leg(h, rNarrow, rWide)
+module leg()
+{
+	translate([0, 0, hLeg])
+	mirror([0, 0, 1])
+	hyperboloid(hLeg, dLegNarrow / 2, dCandleExt / 2);
+}
+
+module hyperboloid(h, rNarrow, rWide)
 {
 	a = h * rNarrow * rWide / (rWide - rNarrow);
 	step = (rWide - rNarrow) / $fn;
-	translate([0, 0, h])
-	mirror([0, 0, 1])
 	rotate_extrude()
 	translate([0, -a / rWide])
 	polygon([[0, a / rWide], [0, a / rNarrow], for (x = [rNarrow : step : rWide])[x, a / x]]);
