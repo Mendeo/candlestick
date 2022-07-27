@@ -15,10 +15,10 @@ dSphereExt = dVaseHole * FI / (2 * sqrt(FI - 1));
 echo("dSphereExt", dSphereExt);
 hVase = dSphereExt / FI;
 echo("hVase", hVase);
-hStandInt = 1;
-hStandExt = tWall + hStandInt;
-echo("hStandExt", hStandExt);
-hLeg = hVase * FI - hStandExt;
+hCandleStandInt = 1;
+hCandleStandExt = tWall + hCandleStandInt;
+echo("hCandleStandExt", hCandleStandExt);
+hLeg = hVase * FI - hCandleStandExt;
 dLegNarrow = tWall * FI * FI;
 echo("dLegNarrow", dLegNarrow);
 
@@ -29,23 +29,23 @@ difference()
 	union()
 	{
 		translate([0, 0, hLeg])
-		stand();
+		candleStand();
 		leg();
 		vase();
 	}
 	//Выемка под саморез
-	translate([0, 0, hLeg + hStandExt - hStandInt - hScrew])
+	translate([0, 0, hLeg + hCandleStandExt - hCandleStandInt - hScrew])
 	cylinder(d = dScrew, h = hScrew + 1);
 }
 
 
-module stand()
+module candleStand()
 {
 	difference()
 	{
-		cylinder(d = dCandleExt, h = hStandExt);
+		cylinder(d = dCandleExt, h = hCandleStandExt);
 		translate([0, 0, tWall])
-		cylinder(d = dCandleExt - 2 * tWall, h = hStandExt);
+		cylinder(d = dCandleExt - 2 * tWall, h = hCandleStandExt);
 	}
 }
 
