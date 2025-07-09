@@ -26,8 +26,8 @@ dLegNarrow = dSphereStand / (FI * 10);
 echo("dLegNarrow", dLegNarrow);
 
 
-translate([0, -dSphereStand / 2, tWall + 4])
-tablet(20, 50);
+// translate([0, -dSphereStand / 2, tWall + 4])
+// tablet(20, 50);
 
 union()
 {
@@ -47,22 +47,6 @@ union()
 	}
 	sphereStand();
 }
-
-module tablet(d, l)
-{
-	lcube = l - d;
-	translate([-lcube / 2, 0, d / 2])
-	rotate([90, 0, 0])
-	linear_extrude(height = 10)
-	hull()
-	{
-		circle(d = d);
-		translate([lcube, 0])
-		circle(d = d);
-	}
-}
-
-//leg();
 
 module leg()
 {
