@@ -1,4 +1,4 @@
-$fn = 250;
+$fn = 50;
 
 FI = (sqrt(5) + 1) / 2;
 
@@ -19,9 +19,10 @@ hCandleStandInt = 1;
 hCandleStandExt = tWall + hCandleStandInt;
 echo("hCandleStandExt", hCandleStandExt);
 hLeg = hVase * FI - hCandleStandExt;
+echo("hLeg", hLeg);
 dSphereStand = dSphereExt / FI;
 echo("dSphereStand", dSphereStand);
-dLegNarrow = dSphereStand / (FI * 7);
+dLegNarrow = dSphereStand / (FI * 10);
 echo("dLegNarrow", dLegNarrow);
 
 translate([0, 0, tWall])
@@ -39,6 +40,16 @@ difference()
 	cylinder(d = dScrew, h = hScrew + 1);
 }
 sphereStand();
+
+//leg();
+
+module leg()
+{
+	translate([0, 0, hLeg])
+	mirror([0, 0, 1])
+	hyperboloid(hLeg, dLegNarrow / 2, dCandleExt / 2);
+	hyperboloid(hLeg, dLegNarrow / 2, dCandleExt / 2);
+}
 
 module sphereStand()
 {
@@ -65,13 +76,6 @@ module candleStand()
 		translate([0, 0, tWall])
 		cylinder(d = dCandleExt - 2 * tWall, h = hCandleStandExt);
 	}
-}
-
-module leg()
-{
-	translate([0, 0, hLeg])
-	mirror([0, 0, 1])
-	hyperboloid(hLeg, dLegNarrow / 2, dCandleExt / 2);
 }
 
 module hyperboloid(h, rNarrow, rWide)
