@@ -25,21 +25,42 @@ echo("dSphereStand", dSphereStand);
 dLegNarrow = dSphereStand / (FI * 10);
 echo("dLegNarrow", dLegNarrow);
 
-translate([0, 0, tWall])
-difference()
+
+translate([0, -dSphereStand / 2, tWall + 4])
+tablet(20, 50);
+
+union()
 {
-	union()
+	translate([0, 0, tWall])
+	difference()
 	{
-		translate([0, 0, hLeg])
-		candleStand();
-		leg();
-		vase();
+		union()
+		{
+			translate([0, 0, hLeg])
+			candleStand();
+			leg();
+			vase();
+		}
+		//Выемка под саморез
+		translate([0, 0, hLeg + hCandleStandExt - hCandleStandInt - hScrew])
+		cylinder(d = dScrew, h = hScrew + 1);
 	}
-	//Выемка под саморез
-	translate([0, 0, hLeg + hCandleStandExt - hCandleStandInt - hScrew])
-	cylinder(d = dScrew, h = hScrew + 1);
+	sphereStand();
 }
-sphereStand();
+
+module tablet(d, l)
+{
+	lcube = l - d;
+	translate([-lcube / 2, 0, d / 2])
+	rotate([90, 0, 0])
+	linear_extrude(height = 10)
+	hull()
+	{
+		circle(d = d);
+		translate([lcube, 0])
+		circle(d = d);
+	}
+}
 
 //leg();
 
